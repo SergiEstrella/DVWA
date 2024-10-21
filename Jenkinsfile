@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Nombre del servidor SonarQube configurado en Jenkins
-        SONARQUBE_SERVER = 'SonarQube'
+        SONARQUBE_SERVER = 'sonarqube-webohook'
         // Agregar sonar-scanner al PATH
         PATH = "/opt/sonar-scanner/bin:${env.PATH}"
     }
