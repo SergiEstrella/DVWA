@@ -22,7 +22,7 @@ pipeline {
                 withSonarQubeEnv(SONARQUBE_SERVER) {  // Usamos el nombre correcto del servidor
                     // Ejecutar el scanner de SonarQube
                     sh """
-                        ${PATH}/sonar-scanner \
+                        sonar-scanner \
                         -Dsonar.projectKey=Pipeline_Sonarqube \
                         -Dsonar.sources=vulnerabilities \
                         -Dsonar.php.version=8.0
