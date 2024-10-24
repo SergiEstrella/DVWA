@@ -21,8 +21,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                // Si se requiere un script de compilación, se puede agregar aquí
-                // Por ejemplo, si se usa Maven o Gradle:
+                // Aquí puedes agregar el comando de compilación
+                // Por ejemplo, si se usa Maven:
                 // sh 'mvn clean install'
                 // O si es un proyecto Node.js:
                 // sh 'npm install'
@@ -32,14 +32,14 @@ pipeline {
         // 3. Etapa de Análisis de SonarQube
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube-webhook') {  // Usamos el nombre correcto del servidor
-                    // Ejecutar el scanner de SonarQube con la ruta especificada
+                withSonarQubeEnv(SONARQUBE_SERVER) {  // Usamos el nombre correcto del servidor
+                    // Ejecutar el scanner de SonarQube
                     sh """
-                        ${SONAR_SCANNER_HOME}/opt/sonar-scanner-6.2.1.4610-linux-x64/bin \
-                        -Dsonar.projectKey=Pipeline_Sonarqube
-                        -Dsonar.projectName=Pipeline_Sonarqube
-                        -Dsonar.sources=.
-                        -Dsonar.host.url=${SONAR_HOST_URL}
+                        ${SONAR_SCANNER_HOME}/sonar-scanner \
+                        -Dsonar.projectKey=Pipeline_Sonarqube \
+                        -Dsonar.projectName=Pipeline_Sonarqube \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
                         -Dsonar.login=${SONAR_AUTH_TOKEN}
                     """
                 }
@@ -50,9 +50,9 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 echo 'Running unit tests...'
-                // Ejecuta pruebas unitarias, por ejemplo:
-                // Para un proyecto Node.js: sh 'npm test'
-                // O cualquier otra herramienta de pruebas que estés utilizando
+                // Ejecuta pruebas unitarias aquí
+                // Por ejemplo, si usas npm:
+                // sh 'npm test'
             }
         }
 
@@ -99,6 +99,4 @@ pipeline {
         }
     }
 }
-
-
 
