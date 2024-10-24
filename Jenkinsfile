@@ -6,7 +6,7 @@ pipeline {
         SONARQUBE_SERVER = 'sonarqube-webhook'  // Nombre del servidor SonarQube configurado en Jenkins
         SONAR_HOST_URL = 'http://10.30.212.42:9000'  // URL del servidor SonarQube
         SONAR_AUTH_TOKEN = credentials('sonarqubbe')  // Token de autenticación de SonarQube
-        SONAR_SCANNER_HOME = '/opt/sonar-scanner-6.2.1.4610-linux-x64/bin'  // Ruta del sonar-scanner en tu sistema
+        SONAR_SCANNER_HOME = "/opt/sonar-scanner-6.2.1.4610-linux-x64/bin:${env.PATH}"  // Ruta del sonar-scanner en tu sistema
     }
 
     stages {
@@ -37,10 +37,8 @@ pipeline {
                     sh """
                         ${SONAR_SCANNER_HOME}/sonar-scanner \
                         -Dsonar.projectKey=Pipeline_Sonarqube \
-                        -Dsonar.projectName=Pipeline_Sonarqube \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.login=${SONAR_AUTH_TOKEN}
+                        -Dsonar.sources=vulnerabilities \
+                        -Dsonar.php.version=8.0
                     """
                 }
             }
