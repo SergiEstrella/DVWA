@@ -21,7 +21,7 @@ pipeline {
                 withSonarQubeEnv("${SONARQUBE_SERVER}") {
                     // Ejecutar el análisis con SonarScanner
                     sh '''
-                        sonar-scanner \
+                        /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner \
                         -Dsonar.projectKey=Pipeline_Sonarqube \
                         -Dsonar.sources=vulnerabilities \
                         -Dsonar.php.version=8.0
