@@ -37,7 +37,7 @@ pipeline {
                 script {
                     // Espera hasta que el análisis sea procesado por SonarQube y devuelve el resultado del Quality Gate
                     def qualityGate = waitForQualityGate()
-                    if (qualityGate.status != 'OK') {
+                    if (qualityGate.status != 'EXECUTION SUCCESS') {
                         error "Quality Gate failed: ${qualityGate.status}"
                     } else {
                         echo "Quality Gate passed: ${qualityGate.status}"
