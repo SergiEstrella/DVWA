@@ -32,46 +32,13 @@ pipeline {
         }
 
         // 5. Etapa de Espera para el Quality Gate de SonarQube
-        stage('Quality Gate') {
+          stage('Quality Gate') {
             steps {
-                script {
-                    // Espera hasta que el análisis sea procesado por SonarQube y devuelve el resultado del Quality Gate
-                    def qualityGate = waitForQualityGate()
-                    if (qualityGate.status != 'EXECUTION SUCCESS') {
-                        error "Quality Gate failed: ${qualityGate.status}"
-                    } else {
-                        echo "Quality Gate passed: ${qualityGate.status}"
-                    }
+                // Esperar el resultado del Quality Gate
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
-        }
-
-        // 6. Etapa de Despliegue (opcional)
-        stage('Deploy') {
-            when {
-                branch 'master'  // Solo se ejecuta el despliegue si estamos en la rama main
-            }
-            steps {
-                echo 'Deploying to the server...'
-                // Aquí se añadiría el código para desplegar la aplicación en el servidor
-                // Ejemplo: sh './deploy.sh'
-            }
-        }
-    }
-
-    post {
-        always {
-            // Limpiar el workspace después de la ejecución, si es necesario
-            cleanWs()
-        }
-
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-
-        failure {
-            echo 'Pipeline failed.'
-        }
+          }
     }
 }
-
