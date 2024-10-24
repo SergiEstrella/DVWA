@@ -13,7 +13,7 @@ pipeline {
         // 1. Etapa de Checkout para clonar el código desde el repositorio
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/SergiEstrella/DVWA.git', branch: 'main'
+                git url: 'https://github.com/SergiEstrella/DVWA.git', branch: 'master'
             }
         }
 
