@@ -36,10 +36,10 @@ pipeline {
                     // Ejecutar el scanner de SonarQube con la ruta especificada
                     sh """
                         ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=Pipeline_Sonarqube \  // Aquí se especifica el nombre del proyecto en SonarQube
-                        -Dsonar.projectName=Pipeline_Sonarqube \  // Opcional, si deseas incluir el nombre del proyecto
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.projectKey=Pipeline_Sonarqube
+                        -Dsonar.projectName=Pipeline_Sonarqube
+                        -Dsonar.sources=.
+                        -Dsonar.host.url=${SONAR_HOST_URL}
                         -Dsonar.login=${SONAR_AUTH_TOKEN}
                     """
                 }
@@ -99,5 +99,6 @@ pipeline {
         }
     }
 }
+
 
 
